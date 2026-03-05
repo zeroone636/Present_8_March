@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Happiness...</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --terminal-green: #10b981;
+            --flower-pink: #fb7185;
+            --accent-pink: #f43f5e;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
+            overflow: hidden;
+            background-color: var(--bg-color);
+            transition: background-color 2s ease;
+        }
+
+        /* ТЕРМИНАЛ */
+        #terminal {
+            padding: 20px;
+            color: var(--terminal-green);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ОТКРЫТКА */
+        #card {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s ease;
+            width: 100%;
+        }
+
+        .congratulation {
+            color: #fff;
+            font-size: 3rem;
+            text-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+            margin-bottom: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* АНИМАЦИЯ ЦВЕТКА (CSS Art) */
+        .flower-container {
+            position: relative;
+            height: 200px;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flower {
+            position: relative;
+            width: 0; 
+            height: 0;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .petal {
+            position: absolute;
+            background: var(--flower-pink);
+            border-radius: 50% 50% 0 50%;
+            width: 50px;
+            height: 50px;
+            left: 50%;
+            top: 50%;
+            transform-origin: bottom right;
+            opacity: 0;
+            animation: bloom 1s forwards;
+            box-shadow: 0 0 10px rgba(251, 113, 133, 0.3);
+            margin-left: -50px; 
+            margin-top: -50px;
+        }
+
+        @keyframes bloom {
+            to { opacity: 1; transform: rotate(var(--r)); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .heart-icon {
+            color: var(--accent-pink);
+            font-size: 50px;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal"></div>
+
+    <div id="card">
+        <div class="flower-container">
+            <div class="flower" id="flower">
+                </div>
+        </div>
+        <h1 class="congratulation">С 8 Марта! 🌸</h1>
+        <p style="color: #fda4af; font-size: 1.2rem;">С праздником! Оставайся всегда такой же красивой и доброй.</p>
+        <div class="heart-icon">♥</div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const lines = [
+            "> Initializing celebration_protocol_2026.exe...",
+            "> Loading assets: flowers, kindness, beauty...",
+            "> Compiling wishes...",
+            "> Optimizing happiness levels...",
+            "> Checking for bugs... [No bugs found]",
+            "> FINAL STATUS: 100% READY.",
+            "> Starting deployment of love..."
+        ];
+
+        let lineIndex = 0;
+
+        function typeLine() {
+            if (lineIndex < lines.length) {
+                const p = document.createElement('p');
+                terminal.appendChild(p);
+                let charIndex = 0;
+                const text = lines[lineIndex];
+                
+                const interval = setInterval(() => {
+                    p.textContent += text[charIndex];
+                    charIndex++;
+                    if (charIndex === text.length) {
+                        clearInterval(interval);
+                        lineIndex++;
+                        setTimeout(typeLine, 600);
+                    }
+                }, 40);
+            } else {
+                setTimeout(startMagic, 1000);
+            }
+        }
+
+        function startMagic() {
+            terminal.style.display = 'none';
+            document.body.style.backgroundColor = '#4c0519';
+            const card = document.getElementById('card');
+            card.style.display = 'block';
+            setTimeout(() => card.style.opacity = '1', 100);
+
+            const flower = document.getElementById('flower');
+            for(let i = 0; i < 8; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.setProperty('--r', `${i * 45}deg`);
+                petal.style.animationDelay = `${i * 0.2}s`;
+                flower.appendChild(petal);
+            }
+        }
+
+        typeLine();
+    </script>
+</body>
+</html>
